@@ -4,7 +4,7 @@
   "description": "backend for bills and invoices generation on PostgreSQL",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js"
   },
   "author": "Nikita Tatishchev <nik.tati1@gmail.com>",
   "license": "ISC",
@@ -15,5 +15,8 @@
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
