@@ -14,7 +14,6 @@ const Customer = sequelize.define("customer", {
 
 const Recipient = sequelize.define("recipient", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  ResipientsEmail___id: { type: DataTypes.STRING },
   email: { type: DataTypes.STRING },
 });
 
