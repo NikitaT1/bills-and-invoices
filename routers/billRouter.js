@@ -1,8 +1,9 @@
 const Router = require("express");
 const router = new Router();
-const { Bill } = require("../models/models");
+const { Bill, Customer, Works, Recipient } = require("../models/models");
 const html_to_pdf = require("html-pdf-node");
 const mailgun = require("mailgun-js");
+const createHTML = require("../htmlGenerator");
 
 const DOMAIN = "_";
 const mg = mailgun({
@@ -11,12 +12,25 @@ const mg = mailgun({
 });
 
 router.post("/", async (req, res) => {
-  const { workPerformed, price } = req.body;
+  // const { recipientEmail, customerEmail, works } = req.body;
   try {
-    const type = await Bill.create({ workPerformed, price });
+    const data = {
+      invoiceDate: "16/05/2021",
+      invoiceNumber: "1",
+      clientName: "clientName",
+      clientLastName: "clientLastName",
+      clientCompany: "clientCompany",
+      price: 7,
+      work: "work",
+      totalPrice: 28,
+      recipientName: "recipientName",
+      recipientCompany: "Computer Science",
+    };
+
+    let htmlFile = createHTML(data);
 
     let options = { format: "A4" };
-    let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
+    let file = { content: htmlFile };
     html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
       var attch = new mg.Attachment({
         data: pdfBuffer,
@@ -34,8 +48,6 @@ router.post("/", async (req, res) => {
         console.log(body);
       });
     });
-
-    //return res.json(type);
   } catch (er) {
     console.log(er);
   }
