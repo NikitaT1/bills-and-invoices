@@ -44,13 +44,21 @@ router.post("/", async (req, res) => {
       return newWorks.reduce((a, b) => a + b.price, 0);
     }
 
+    function sumWorks(newWorks) {
+      let arr = [];
+      newWorks.forEach((element) => {
+        arr.push(element.workPerformed);
+      });
+      return arr;
+    }
+
     const data = {
       invoiceDate: today,
       invoiceNumber: "1",
       clientName: customer.firstName,
       clientLastName: customer.lastName,
       clientCompany: "clientCompany",
-      works: [],
+      works: "clientCompany",
       price: 7,
       work: "work",
       totalPrice: sumPrice(newWorks),
@@ -58,29 +66,29 @@ router.post("/", async (req, res) => {
       recipientCompany: "Computer Science",
     };
 
-    return res.json(newWorks);
+    // return res.json(data);
 
-    // let htmlFile = createHTML(data);
+    let htmlFile = createHTML(data);
 
-    // let options = { format: "A4" };
-    // let file = { content: htmlFile };
-    // html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
-    //   var attch = new mg.Attachment({
-    //     data: pdfBuffer,
-    //     filename: "filename",
-    //     contentType: "application/pdf",
-    //   });
-    //   const data = {
-    //     from: "Excited User <me@samples.mailgun.org>",
-    //     to: "nik.tati1@gmail.com, YOU@YOUR_DOMAIN_NAME",
-    //     subject: "Hello",
-    //     text: "Testing some Mailgun awesomness!!!!!!",
-    //     attachment: [attch],
-    //   };
-    //   mg.messages().send(data, function (error, body) {
-    //     console.log(body);
-    //   });
-    // });
+    let options = { format: "A4" };
+    let file = { content: htmlFile };
+    html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
+      var attch = new mg.Attachment({
+        data: pdfBuffer,
+        filename: "filename",
+        contentType: "application/pdf",
+      });
+      const data = {
+        from: "Excited User <me@samples.mailgun.org>",
+        to: "nik.tati1@gmail.com, YOU@YOUR_DOMAIN_NAME",
+        subject: "Hello",
+        text: "Testing some Mailgun awesomness!!!!!!",
+        attachment: [attch],
+      };
+      mg.messages().send(data, function (error, body) {
+        console.log(body);
+      });
+    });
   } catch (er) {
     console.log(er);
   }

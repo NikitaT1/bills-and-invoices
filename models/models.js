@@ -36,6 +36,7 @@ const Works = sequelize.define("work", {
 
 Customer.hasMany(Recipient);
 Recipient.belongsTo(Customer);
+
 Bill.hasMany(Works);
 Works.belongsTo(Bill);
 
