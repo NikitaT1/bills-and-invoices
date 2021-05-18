@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  postgress:
+    image: "postgres"
+    container_name: "postgress"
+    ports:
+      - "5432:5432"
+  server:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgress
+    links:
+      - postgress
