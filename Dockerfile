@@ -1,17 +1,21 @@
-FROM node:15
+FROM node:10-slim
+USER node
 
-WORKDIR /app
+RUN mkdir -p /home/node/dist/server
 
-COPY . .
+WORKDIR /home/node/dist/server
+
+COPY --chown=node package*.json ./
 
 RUN npm install
 
-ENV   PORT=7000
-ENV   DB_NAME='bills-and-invoices'
-ENV   DB_USER='docker'
-ENV   DB_PASSWORD='123456'
-ENV   DB_HOST='postgress'
-ENV   DB_PORT=5432    
+COPY --chown=node . .
+
+ENV PORT=5000
+
+EXPOSE ${PORT}
+
+
 
 
 CMD ["npm", "start"]

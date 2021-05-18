@@ -4,7 +4,8 @@
   "description": "backend for bills and invoices generation on PostgreSQL",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Nikita Tatishchev <nik.tati1@gmail.com>",
   "license": "ISC",
@@ -19,7 +20,6 @@
     "nodemailer": "^6.6.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "puppeteer": "^5.5.0",
     "sequelize": "^6.6.2"
   },
   "devDependencies": {

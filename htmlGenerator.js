@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const handlebars = require("handlebars");
-// const puppeteer = require("puppeteer");
 
 function createHTML(props) {
   let templateHtml = fs.readFileSync(

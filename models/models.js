@@ -8,11 +8,6 @@ const Customer = sequelize.define("customer", {
   email: { type: DataTypes.STRING },
 });
 
-// const RecipientsEmail = sequelize.define("bill", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   email: { type: DataTypes.STRING },
-// });
-
 const Recipient = sequelize.define("recipient", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING },
@@ -23,8 +18,6 @@ const Bill = sequelize.define("bill", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   recipientId: { type: DataTypes.INTEGER },
   customerId: { type: DataTypes.INTEGER },
-  // workPerformed: { type: DataTypes.STRING },
-  // price: { type: DataTypes.INTEGER },
 });
 
 const Works = sequelize.define("work", {

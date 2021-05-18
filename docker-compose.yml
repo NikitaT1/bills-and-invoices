@@ -1,8 +1,10 @@
 version: "3.9"
 services:
-  postgress:
+  postgres:
     image: "postgres"
-    container_name: "postgress"
+    env_file:
+      - database.env
+    container_name: "postgres"
     ports:
       - "5432:5432"
   server:
@@ -10,6 +12,6 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - postgress
+      - postgres
     links:
-      - postgress
+      - postgres
