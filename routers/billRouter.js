@@ -66,7 +66,7 @@ router.post("/", async (req, res) => {
       recipientCompany: "Computer Science",
     };
 
-    //return res.json(data);
+    // return res.json(data);
 
     let htmlFile = createHTML(data);
 
@@ -75,19 +75,20 @@ router.post("/", async (req, res) => {
     html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
       var attch = new mg.Attachment({
         data: pdfBuffer,
-        filename: "filename",
+        filename: "Invoice",
         contentType: "application/pdf",
       });
       const data = {
         from: "Excited User <me@samples.mailgun.org>",
         to: "nik.tati1@gmail.com, YOU@YOUR_DOMAIN_NAME",
-        subject: "Hello",
-        text: "Testing some Mailgun awesomness!!!!!!",
+        subject: "Invoice recieved",
+        text: "You have new incoming invoice",
         attachment: [attch],
       };
       mg.messages().send(data, function (error, body) {
         console.log(body);
       });
+      return res.status(200).send("E-mail has been sent");
     });
   } catch (er) {
     console.log(er);
