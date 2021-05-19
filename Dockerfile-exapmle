@@ -1,0 +1,14 @@
+#The inner library of html-pdf converter may not work correctly in Docker. 
+#In that case use you'll need to install the missing dependencies 
+#and the latest Chromium package in these file. 
+#In real Dockerfile, attached to these project it is already been installed
+
+ENV   DB_NAME='db-name'
+ENV   DB_USER='user-name'
+ENV   DB_PASSWORD='some password'
+ENV   DB_HOST='db-host'
+ENV   DB_PORT=5432    
+ENV   DOMAIN_URL='generated URL from post service'
+ENV   API_KEY='generated key from service'
+
+CMD ["npm", "start"]
