@@ -15,7 +15,7 @@ const mg = mailgun({
 });
 
 router.post("/", async (req, res) => {
-  const { recipientEmail, customerEmail, works } = req.body;
+  const { recipientEmail, customerEmail, works, recipientsCompany } = req.body;
   try {
     const customer = await Customer.findOne({
       where: { email: customerEmail },
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     if (!recipient) {
       recipient = await Recipient.create({
         email: recipientEmail,
-        recipientCompany: "company",
+        recipientsCompany: recipientsCompany,
       });
     }
     const bill = await Bill.create({
@@ -37,10 +37,9 @@ router.post("/", async (req, res) => {
       works.map((w) => ({ ...w, billId: bill.toJSON().id }))
     );
 
-    //const timeElapsed = Date.now();
     const today = new Date(Date.now()).toLocaleDateString();
 
-    function sumPrice(newWorks) {
+    function totalPrices(newWorks) {
       return newWorks.reduce((a, b) => a + b.price, 0);
     }
 
@@ -52,21 +51,32 @@ router.post("/", async (req, res) => {
       return arr;
     }
 
+    function sumPrices(newWorks) {
+      let arr = [];
+      newWorks.forEach((element) => {
+        arr.push(element.price);
+      });
+      return arr;
+    }
+
     const data = {
       invoiceDate: today,
       invoiceNumber: "1",
       clientName: customer.firstName,
       clientLastName: customer.lastName,
-      clientCompany: "clientCompany",
-      works: "clientCompany",
-      price: 7,
-      work: "work",
-      totalPrice: sumPrice(newWorks),
-      recipientName: recipient.recipientsCompany,
-      recipientCompany: "Computer Science",
+      customerEmail: customerEmail,
+      recipientEmail: recipientEmail,
+      recipientsCompany: recipientsCompany,
+      works1: sumWorks(newWorks)[0] || "-",
+      prices1: sumPrices(newWorks)[0] || "-",
+      works2: sumWorks(newWorks)[1] || "-",
+      prices2: sumPrices(newWorks)[1] || "-",
+      works3: sumWorks(newWorks)[2] || "-",
+      prices3: sumPrices(newWorks)[2] || "-",
+      works4: sumWorks(newWorks)[3] || "-",
+      prices4: sumPrices(newWorks)[3] || "-",
+      totalPrice: totalPrices(newWorks),
     };
-
-    // return res.json(data);
 
     let htmlFile = createHTML(data);
 
@@ -79,10 +89,10 @@ router.post("/", async (req, res) => {
         contentType: "application/pdf",
       });
       const data = {
-        from: "Excited User <me@samples.mailgun.org>",
-        to: "nik.tati1@gmail.com, YOU@YOUR_DOMAIN_NAME",
+        from: "Incoming invoice <me@samples.mailgun.org>",
+        to: "postmailer21@gmail.com, YOU@YOUR_DOMAIN_NAME",
         subject: "Invoice recieved",
-        text: "You have new incoming invoice",
+        text: `Here is invoice in the attached file. With best regards, ${customer.firstName} ${customer.lastName}`,
         attachment: [attch],
       };
       mg.messages().send(data, function (error, body) {

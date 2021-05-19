@@ -107,16 +107,8 @@
           <td colspan="2">
             <table>
               <tr>
-                <td class="title">
-                  <img
-                    src="./img/invoiceNew.jpg"
-                    style="width: 100%; max-width: 300px"
-                  />
-                </td>
-                <td>
-                  Invoice #: {{invoiceNumber}}<br />
-                  Created: {{invoiceDate}}<br />
-                </td>
+                <td class="title"></td>
+                <td>Invoice created: {{invoiceDate}}<br /></td>
               </tr>
             </table>
           </td>
@@ -129,13 +121,13 @@
                 <td>
                   Customer:<br />
                   {{clientName}} {{clientLastName}}<br />
-                  {{clientCompany}}
+                  {{customerEmail}}
                 </td>
 
                 <td>
                   Invoice recipient:<br />
-                  {{recipientName}}<br />
-                  {{recipientCompany}}
+                  {{recipientsCompany}}<br />
+                  {{recipientEmail}}
                 </td>
               </tr>
             </table>
@@ -149,9 +141,27 @@
         </tr>
 
         <tr class="item">
-          <td>{{work}}</td>
+          <td>{{works1}}</td>
 
-          <td>{{price}}</td>
+          <td>{{prices1}}</td>
+        </tr>
+
+        <tr class="item">
+          <td>{{works2}}</td>
+
+          <td>{{prices2}}</td>
+        </tr>
+
+        <tr class="item">
+          <td>{{works3}}</td>
+
+          <td>{{prices3}}</td>
+        </tr>
+
+        <tr class="item">
+          <td>{{works4}}</td>
+
+          <td>{{prices4}}</td>
         </tr>
 
         <tr class="total">
