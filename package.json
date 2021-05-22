@@ -10,10 +10,12 @@
   "author": "Nikita Tatishchev <nik.tati1@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "bullmq": "^1.25.1",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "express-validator": "^6.11.1",
     "handlebars": "^4.7.7",
     "html-pdf-node": "^1.0.7",
     "mailgun-js": "^0.22.0",

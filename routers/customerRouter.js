@@ -1,8 +1,10 @@
 const Router = require("express");
 const router = new Router();
 const { Customer } = require("../models/models");
+const customValidation = require("../middleware/validation");
+const customerSchema = require("../schema/customerSchema");
 
-router.post("/", async (req, res) => {
+router.post("/", customerSchema, customValidation, async (req, res) => {
   const { firstName, lastName, email } = req.body;
   try {
     const type = await Customer.create({ firstName, lastName, email });

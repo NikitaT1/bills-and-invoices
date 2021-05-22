@@ -5,6 +5,8 @@ const { Bill, Customer, Works, Recipient } = require("../models/models");
 const html_to_pdf = require("html-pdf-node");
 const mailgun = require("mailgun-js");
 const createHTML = require("../htmlGenerator");
+const customValidation = require("../middleware/validation");
+const billSchema = require("../schema/billSchema");
 
 const DOMAIN = process.env.DOMAIN_URL || "";
 const API_KEY = process.env.API_KEY || "";
@@ -14,7 +16,7 @@ const mg = mailgun({
   domain: DOMAIN,
 });
 
-router.post("/", async (req, res) => {
+router.post("/", billSchema, customValidation, async (req, res) => {
   const { recipientEmail, customerEmail, works, recipientsCompany } = req.body;
   try {
     const customer = await Customer.findOne({
@@ -77,6 +79,8 @@ router.post("/", async (req, res) => {
       prices4: sumPrices(newWorks)[3] || "-",
       totalPrice: totalPrices(newWorks),
     };
+
+    return res.send(data);
 
     let htmlFile = createHTML(data);
 
