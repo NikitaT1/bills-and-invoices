@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const handlebars = require("handlebars");
+import fs from "fs";
+import path from "path";
+import handlebars from "handlebars";
 
 function createHTML(props) {
   let templateHtml = fs.readFileSync(
@@ -12,4 +12,4 @@ function createHTML(props) {
   return html;
 }
 
-module.exports = createHTML;
+export default createHTML;

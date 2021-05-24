@@ -1,8 +1,9 @@
-const Router = require("express");
+import Router from "express";
+import { Customer } from "../models/models";
+import customValidation from "../middleware/validation";
+import customerSchema from "../schema/customerSchema";
+
 const router = new Router();
-const { Customer } = require("../models/models");
-const customValidation = require("../middleware/validation");
-const customerSchema = require("../schema/customerSchema");
 
 router.post("/", customerSchema, customValidation, async (req, res) => {
   const { firstName, lastName, email } = req.body;
@@ -23,4 +24,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

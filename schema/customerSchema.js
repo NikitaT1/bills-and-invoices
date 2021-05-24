@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+import { body } from "express-validator";
 
 const customerSchema = [
   body("firstName")
@@ -14,4 +14,4 @@ const customerSchema = [
     .withMessage("email must contain a valid email address"),
 ];
 
-module.exports = customerSchema;
+export default customerSchema;

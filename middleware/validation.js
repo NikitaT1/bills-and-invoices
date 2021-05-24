@@ -1,5 +1,5 @@
-const bodyparser = require("body-parser");
-const { check, validationResult } = require("express-validator");
+import bodyparser from "body-parser";
+import { check, validationResult } from "express-validator";
 
 function customValidation(req, res, next) {
   const errors = validationResult(req);
@@ -9,4 +9,4 @@ function customValidation(req, res, next) {
   next();
 }
 
-module.exports = customValidation;
+export default customValidation;

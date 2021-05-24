@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+import { body } from "express-validator";
 
 const billSchema = [
   body("recipientEmail")
@@ -16,4 +16,4 @@ const billSchema = [
     .withMessage("Works must contay performed work and it's price"),
 ];
 
-module.exports = billSchema;
+export default billSchema;

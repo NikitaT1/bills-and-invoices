@@ -1,7 +1,8 @@
-const Router = require("express");
+import Router from "express";
+import customerRouter from "./customerRouter";
+import billRouter from "./billRouter";
+
 const router = new Router();
-const customerRouter = require("./customerRouter");
-const billRouter = require("./billRouter");
 
 router.use("/customer", customerRouter);
 router.use("/bills", billRouter);
