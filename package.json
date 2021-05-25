@@ -4,7 +4,7 @@
   "description": "backend for bills and invoices generation on PostgreSQL",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon --exec babel-node index.js",
     "start": "nodemon --exec babel-node index.js"
   },
   "author": "Nikita Tatishchev <nik.tati1@gmail.com>",
