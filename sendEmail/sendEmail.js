@@ -1,5 +1,5 @@
-const mailgun = require("mailgun-js");
-const path = require("path");
+import mailgun from "mailgun-js";
+import path from "path";
 require("dotenv").config();
 
 const DOMAIN = process.env.DOMAIN_URL || "";
@@ -32,4 +32,4 @@ async function sendEmail() {
   }
 }
 
-module.exports = sendEmail;
+export default sendEmail;

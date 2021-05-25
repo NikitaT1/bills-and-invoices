@@ -1,4 +1,4 @@
-const { Bill, Customer, Works, Recipient } = require("../models/models");
+import { Bill, Customer, Works, Recipient } from "../models/models";
 
 require("dotenv").config();
 
@@ -31,14 +31,6 @@ async function bill({ data }) {
     return newWorks.reduce((a, b) => a + b.price, 0);
   }
 
-  function sumWorks(newWorks) {
-    let arr = [];
-    newWorks.forEach((element) => {
-      arr.push(element.workPerformed);
-    });
-    return arr;
-  }
-
   function sumPrices(newWorks) {
     let arr = [];
     newWorks.forEach((element) => {
@@ -56,7 +48,7 @@ async function bill({ data }) {
       customerEmail: customerEmail,
       recipientEmail: recipientEmail,
       recipientsCompany: recipientsCompany,
-      works: sumWorks(newWorks),
+      works: newWorks,
       prices: sumPrices(newWorks),
       totalPrice: totalPrices(newWorks),
     },
@@ -66,4 +58,4 @@ async function bill({ data }) {
   return res;
 }
 
-module.exports = bill;
+export default bill;

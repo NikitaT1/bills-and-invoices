@@ -1,26 +1,26 @@
-const sequelize = require("../db");
-const { DataTypes } = require("sequelize");
+import sequelize from "../db";
+import { DataTypes } from "sequelize";
 
-const Customer = sequelize.define("customer", {
+export const Customer = sequelize.define("customer", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   firstName: { type: DataTypes.STRING },
   lastName: { type: DataTypes.STRING },
   email: { type: DataTypes.STRING },
 });
 
-const Recipient = sequelize.define("recipient", {
+export const Recipient = sequelize.define("recipient", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING },
   recipientsCompany: { type: DataTypes.STRING },
 });
 
-const Bill = sequelize.define("bill", {
+export const Bill = sequelize.define("bill", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   recipientId: { type: DataTypes.INTEGER },
   customerId: { type: DataTypes.INTEGER },
 });
 
-const Works = sequelize.define("work", {
+export const Works = sequelize.define("work", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   billId: { type: DataTypes.INTEGER },
   workPerformed: { type: DataTypes.STRING },
@@ -35,5 +35,3 @@ Works.belongsTo(Bill);
 
 Recipient.hasMany(Bill);
 Bill.belongsTo(Recipient);
-
-module.exports = { Customer, Recipient, Bill, Works };

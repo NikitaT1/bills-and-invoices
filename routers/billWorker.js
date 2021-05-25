@@ -1,5 +1,5 @@
-const { Worker } = require("bullmq");
-const { connection, concurrency, limiter, queueName1 } = require("../config");
+import { Worker } from "bullmq";
+import { connection, concurrency, limiter, queueName1 } from "../config";
 
 const worker = new Worker(queueName1, `${__dirname}/billBll.js`, {
   connection,
@@ -9,4 +9,4 @@ const worker = new Worker(queueName1, `${__dirname}/billBll.js`, {
 
 console.info("Worker listening for jobs" + queueName1);
 
-module.exports = worker;
+export default worker;

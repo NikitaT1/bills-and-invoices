@@ -1,13 +1,11 @@
 import Router from "express";
-import mailgun from "mailgun-js";
 import customValidation from "../middleware/validation";
 import billSchema from "../schema/billSchema";
-import sendEmail from "../sendEmail/sendEmail";
-const config = require("../config");
-const { Queue } = require("bullmq");
-const mailWorker = require("../sendEmail/mailWorker");
-const dbWorker = require("./billWorker");
-const htmlWorker = require("../htmlPdfGenerator/htmlWorker");
+import config from "../config";
+import { Queue } from "bullmq";
+import mailWorker from "../sendEmail/mailWorker";
+import dbWorker from "./billWorker";
+import htmlWorker from "../htmlPdfGenerator/htmlWorker";
 
 require("dotenv").config();
 
@@ -58,6 +56,7 @@ router.post("/", billSchema, customValidation, async (req, res) => {
     );
 
     await dbQueue.add("someTaskName", req.body);
+    res.send("post request is done");
   } catch (er) {
     console.log(er);
   }

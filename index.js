@@ -1,22 +1,9 @@
 import express from "express";
 require("dotenv").config();
 const sequelize = require("./db");
-const models = require("./models/models");
 import cors from "cors";
 const router = require("./routers/router");
-import { Queue, Worker } from "bullmq";
-import IORedis from "ioredis";
-
-// export const connection = new IORedis({
-//   port: 6379,
-//   host: "127.0.0.1",
-//   password: "nikitat1",
-// });
-
-//export const myQueue = new Queue("myqueue", { connection });
-// export const myWorker = new Worker("myworker", async (job) => {}, {
-//   connection,
-// });
+const logger = require("./logger/logger");
 
 const PORT = process.env.PORT || 3000;
 
@@ -34,5 +21,9 @@ const start = async () => {
     console.log(e);
   }
 };
+
+logger.info("text info");
+logger.warn("text warn");
+logger.error("text error");
 
 start();

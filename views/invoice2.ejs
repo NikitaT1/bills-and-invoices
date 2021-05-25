@@ -145,10 +145,12 @@
 
         <tr class="item">
           <% d.works.forEach(w => {%>
-          <tr><td><%= w %></td></tr>
-          <% });%> <% d.prices.forEach(p => {%>
-          <tr><td></td><%= p %></td></tr>
-          <% });%>
+          <tr><td><%= w.workPerformed %></td><td><%= w.price %></td></tr>
+          <% });%> 
+          
+          <!-- <% d.prices.forEach(p => {%>
+          <tr><td><%= p %></td></tr>
+          <% });%> -->
         </tr>
 
         <tr class="total">
