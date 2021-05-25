@@ -2,10 +2,10 @@ import Router from "express";
 import mailgun from "mailgun-js";
 import customValidation from "../middleware/validation";
 import billSchema from "../schema/billSchema";
-import sendEmail from "./sendEmail";
+import sendEmail from "../sendEmail/sendEmail";
 const config = require("../config");
 const { Queue } = require("bullmq");
-const mailWorker = require("./mailWorker");
+const mailWorker = require("../sendEmail/mailWorker");
 const dbWorker = require("./billWorker");
 const htmlWorker = require("../htmlPdfGenerator/htmlWorker");
 
