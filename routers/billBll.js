@@ -4,7 +4,6 @@ require("dotenv").config();
 
 async function bill({ data }) {
   const { recipientEmail, customerEmail, works, recipientsCompany } = data;
-  console.log("=======> bill");
   const customer = await Customer.findOne({
     where: { email: customerEmail },
   });
@@ -54,7 +53,6 @@ async function bill({ data }) {
     },
   ];
 
-  console.log("=====> generated DATA", res);
   return res;
 }
 

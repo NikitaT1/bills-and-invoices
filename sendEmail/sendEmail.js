@@ -12,9 +12,9 @@ const mg = mailgun({
 
 async function sendEmail() {
   try {
-    console.log("sendEmail ===> started");
+    console.log("starting send Email... ");
     let filepath = path.join(__dirname, "../report.pdf");
-    console.log("sendEmail ===> filepath", filepath);
+
     let data = {
       from: "Incoming invoice <me@samples.mailgun.org>",
       to: "postmailer21@gmail.com, YOU@YOUR_DOMAIN_NAME",

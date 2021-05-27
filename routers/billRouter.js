@@ -6,6 +6,8 @@ import { Queue } from "bullmq";
 import mailWorker from "../sendEmail/mailWorker";
 import dbWorker from "./billWorker";
 import htmlWorker from "../htmlPdfGenerator/htmlWorker";
+const Redis = require("ioredis");
+const io = new Redis(); // Connect to 127.0.0.1:6379
 
 require("dotenv").config();
 
@@ -24,29 +26,24 @@ const mailQueue = new Queue(config.queueName3, {
 });
 
 router.post("/", billSchema, customValidation, async (req, res) => {
-  console.log("=====>");
   let resData = {};
   try {
     dbWorker.on("completed", async (result) => {
-      console.log("dbWorker ====> completed", result.returnvalue);
       resData = { ...result.returnvalue };
       await htmlQueue.add("someTaskName", result.returnvalue);
+      io.publish("my-channel-1", JSON.stringify(result.returnvalue));
     });
 
     htmlWorker.on("completed", async () => {
-      console.log("htmlWorker ============> completed");
-      console.info(`Completed htmlWorker`);
       await mailQueue.add("someTaskName");
     });
 
     mailWorker.on("completed", async (job) => {
-      console.info(`Completed mailWorker`, job.name);
       res.send(resData);
     });
 
-    dbWorker.on(
-      "failed",
-      (job, err) => console.info(`Failed dbWorker`, job.data, err) //make error handler and add to on => failed
+    dbWorker.on("failed", (job, err) =>
+      console.info(`Failed dbWorker`, job.data, err)
     );
     htmlWorker.on("failed", (job, err) =>
       console.info(`Failed htmlWorker`, job.data, err)
@@ -55,7 +52,7 @@ router.post("/", billSchema, customValidation, async (req, res) => {
       console.info(`Failed mailWorker`, job.data, err)
     );
 
-    await dbQueue.add("someTaskName", req.body);
+    await dbQueue.add("dataBase in quene", req.body);
     res.send("post request is done");
   } catch (er) {
     console.log(er);
