@@ -42,16 +42,6 @@ router.post("/", billSchema, customValidation, async (req, res) => {
       res.send(resData);
     });
 
-    dbWorker.on("failed", (job, err) =>
-      console.info(`Failed dbWorker`, job.data, err)
-    );
-    htmlWorker.on("failed", (job, err) =>
-      console.info(`Failed htmlWorker`, job.data, err)
-    );
-    mailWorker.on("failed", (job, err) =>
-      console.info(`Failed mailWorker`, job.data, err)
-    );
-
     await dbQueue.add("dataBase in quene", req.body);
     res.send("post request is done");
   } catch (er) {

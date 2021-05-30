@@ -8,9 +8,5 @@ const router = new Router();
 
 router.use("/customer", customerRouter);
 router.use("/bills", billRouter);
-router.use("/bl", () => {
-  console.log("redis connect...");
-  io.publish("my-channel-1", JSON.stringify({ qwerry: 123 }));
-});
 
 module.exports = router;

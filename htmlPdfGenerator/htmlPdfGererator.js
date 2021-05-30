@@ -2,8 +2,6 @@ import express from "express";
 import ejs from "ejs";
 import pdf from "html-pdf";
 import path from "path";
-import { Queue } from "bullmq";
-import { queueName } from "../config";
 let app = express();
 
 function htmlPdfGenerator(props) {
